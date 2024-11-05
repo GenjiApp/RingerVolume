@@ -1,0 +1,23 @@
+name: Build RingerVolume
+
+on:
+  push:
+    branches: [ "**" ]
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v4
+      
+    - name: Set execute permission for ipabuild.sh
+      run: chmod +x ./ipabuild.sh
+      
+    - name: Make IPA
+      run: ./ipabuild.sh
+      
+    - uses: actions/upload-artifact@v4
+      with:
+        name: IPA Download
+        path: build/RingerVolume.ipa
